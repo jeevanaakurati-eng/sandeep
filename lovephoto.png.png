@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Will You Be My Valentine?</title>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Main container */
+.container {
+  text-align: center;
+}
+
+/* Question */
+#question {
+  font-size: clamp(24px, 5vw, 40px);
+  margin-bottom: 30px;
+  font-weight: bold;
+}
+
+/* Buttons */
+button {
+  margin: 10px;
+  padding: 12px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 50px;
+  background-color: white;
+  color: #ff4b5c;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 0 10px rgba(255, 75, 92, 0.5);
+}
+
+button:hover {
+  background-color: #ff4b5c;
+  color: white;
+}
+
+/* Message */
+#message {
+  font-size: clamp(18px, 3vw, 26px);
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+/* Image centered */
+#valentineImage, #panda {
+  display: none;
+  margin: 20px auto;
+  width: 300px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px rgba(255,75,92,0.5);
+}
+
+/* Floating emojis */
+.emoji {
+  position: absolute;
+  font-size: 25px;
+  pointer-events: none;
+  animation: float 5s linear infinite;
+}
+
+@keyframes float {
+  0% {transform: translateY(100vh);}
+  100% {transform: translateY(-10vh);}
+}
+
+/* Punch animation */
+@keyframes punchMove {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(40px); }
+  100% { transform: translateX(0); }
+}
+
+.punching {
+  animation: punchMove 0.5s ease-in-out;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <div id="question">Will you be my Valentine forever?</div>
+
+  <button onclick="chooseYes()">Yes ❤️</button>
+  <button onclick="chooseNo()">No 😡</button>
+
+  <div id="message"></div>
+
+  <!-- Your images must be in same folder -->
+  <img id="valentineImage" src="lovephoto.png" alt="Our Image">
+  <img id="panda" src="panda-punch.png" alt="Panda Punch">
+</div>
+
+<script>
+
+function chooseYes() {
+  document.getElementById("question").style.display = "none";
+  document.querySelectorAll("button").forEach(btn => btn.style.display="none");
+
+  document.getElementById("message").innerHTML =
+    "I love you so much KANNODA 😘<br>Happy Valentine's Day ❤️🫂";
+
+  document.getElementById("valentineImage").style.display = "block";
+
+  const emojis = ["❤️","😘","💞","🫂"];
+  setInterval(() => {
+    const emoji = document.createElement("div");
+    emoji.className = "emoji";
+    emoji.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+    emoji.style.left = Math.random()*100 + "vw";
+    emoji.style.fontSize = 20 + Math.random()*30 + "px";
+    document.body.appendChild(emoji);
+    setTimeout(() => emoji.remove(), 5000);
+  }, 300);
+}
+
+function chooseNo() {
+  document.getElementById("question").style.display = "none";
+  document.querySelectorAll("button").forEach(btn => btn.style.display="none");
+
+  const panda = document.getElementById("panda");
+  panda.style.display = "block";
+  panda.classList.add("punching");
+
+  setTimeout(() => {
+    panda.classList.remove("punching");
+  }, 500);
+}
+
+</script>
+
+</body>
+</html>
